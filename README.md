@@ -25,7 +25,8 @@ Current Compatibility
 | Release | Not Ready | Needs x64 TWAIN fix     |
 
 TODO: 
-* Reimplement or remove AES functionality.
+* Reimplement or remove AES functionality
+* Fix an overwrite existing files bug
 * Clean up x86 Release
 
 Similar Tools (Not Recommended)
