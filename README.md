@@ -50,3 +50,33 @@ The following tools are either failed attempts to rewrite PaperBack or do not co
 * https://github.com/avarner9/paperbak
 * https://github.com/colorsafe/colorsafe/issues/17
 * https://github.com/fdobrovolny/python-paperbak
+
+Bzib2
+-------------
+The bzip library https://sourceware.org/bzip2/downloads.html
+git://sourceware.org/git/bzip2.git
+nmake -f makefile.msc
+
+Copyright
+-------------
+MRPODS  
+built off PaperBack v1.10  
+
+Copyright © 2023 Artem Doll (rewrite)  
+Copyright © 2007 Oleh Yuschuk (creator)  
+Copyright © 2013 Michael Mohr (AES fix)  
+  
+Reed-Solomon ECC:  
+Copyright © 2002 Phil Karn (GPL)  
+  
+Bzip2 data compression  
+Copyright © 1996-2010 Julian R. Seward (see sources)  
+  
+AES and SHA code  
+Copyright © 1998-2010, Brian Gladman (3-clause BSD)  
+  
+----- THIS SOFTWARE IS FREE -----  
+Released under GNU Public License (GPL 3+)  
+Full sources available  
+at: https://github.com/artem-r-d/mrpods  
+Read the paper: https://arxiv.org/abs/2312.10275  
