@@ -15,7 +15,7 @@ Screenshots
 
 Science Paper
 -------------
-
+https://arxiv.org/abs/2312.10275
 
 Similar Tools (Not Recommended)
 -------------
