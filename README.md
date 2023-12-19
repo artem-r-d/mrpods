@@ -5,7 +5,7 @@
 </div>
 
 ---
-
+Back up digital files to paper.
 Rewrite and continuation of Oleh Yuschuk's [PaperBack](https://ollydbg.de/Paperbak/) in modern C++.
 
 Screenshots
@@ -16,6 +16,17 @@ Screenshots
 Science Paper
 -------------
 https://arxiv.org/abs/2312.10275
+
+Current Compatibility
+-------------
+|       | x86  | x64  |
+|-------|------|------|
+| Debug | Ready     | Needs x64 TWAIN fix     |
+| Release | Not Ready | Needs x64 TWAIN fix     |
+
+TODO: 
+* Reimplement or remove AES functionality.
+* Clean up x86 Release
 
 Similar Tools (Not Recommended)
 -------------
