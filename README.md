@@ -29,6 +29,14 @@ TODO:
 * Fix an overwrite existing files bug
 * Clean up x86 Release
 
+Project Goals
+-------------
+The goal of this project is to make the PaperBack project compatible with Visual Studio and modern C++ standards so that it may be compiled without the Borland compiler. This will allow for easier development of additional features such as native x64 support, improved UI, and more.
+
+Changelog
+---------
+Version 1.10 - Initial release. Based off PaperBack v1.10. AES functionality is commented out at the moment, and there is no graceful handling of existing AES documents from PaperBack.
+
 Similar Tools (Not Recommended)
 -------------
 The following tools are either failed attempts to rewrite PaperBack or do not contain all of the features and functionality that the original software provides - a rough 17 years.
@@ -42,9 +50,3 @@ The following tools are either failed attempts to rewrite PaperBack or do not co
 * https://github.com/avarner9/paperbak
 * https://github.com/colorsafe/colorsafe/issues/17
 * https://github.com/fdobrovolny/python-paperbak
-
-Project Goals
--------------
-
-Changelog
----------
