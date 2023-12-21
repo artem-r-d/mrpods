@@ -26,7 +26,6 @@ Current Compatibility
 
 TODO: 
 * Reimplement or remove AES functionality
-* Fix an overwrite existing files bug
 * Clean up x86 Release
 
 Project Goals
