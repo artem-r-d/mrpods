@@ -88,7 +88,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);libbz2.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\cloud\pro\Pro\paperbak\paperbak-main\BZLIB;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\cloud\pro\Pro\paperbak\mrpods-main\BZLIB;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
