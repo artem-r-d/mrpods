@@ -32,6 +32,15 @@ Project Goals
 -------------
 The goal of this project is to make the PaperBack project compatible with Visual Studio and modern C++ standards so that it may be compiled without the Borland compiler. This will allow for easier development of additional features such as native x64 support, improved UI, and more.
 
+Compilation
+-------------
+1. Clone or download repository zip.
+2. Install Visual Studio 2022 (Community Edition without logging in is fine)
+3. Install the following Visual Studio components: Desktop development with C++, C++ MFC for latest v143 build tools (x86 & x64)
+4. Open mrpods.sln solution
+5. Right click mrpods and in the properties update libraries locations. Linker > All Options (scroll up) > D:\cloud\pro\Pro\paperbak\mrpods-main\BZLIB; change this to wherever BZLIB folder is for you. Make sure to repeat this process for Release/Debug by selecting them at the top. 
+6. Build / build + run
+
 Changelog
 ---------
 Version 1.10 - Initial release. Based off PaperBack v1.10. AES functionality is commented out at the moment, and there is no graceful handling of existing AES documents from PaperBack.
