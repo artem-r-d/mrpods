@@ -22,9 +22,10 @@ Current Compatibility
 |       | x86  | x64  |
 |-------|------|------|
 | Debug | Ready     | Needs x64 TWAIN fix     |
-| Release | Ready | Needs x64 TWAIN fix     |
+| Release | Not Ready | Needs x64 TWAIN fix     |
 
 TODO: 
+* Fix x86 Release (Access Violation/memory issue. When testing bitmap decoding, program will fail bitmap decoding when ran for the first time (Access violation writing location). Renaming the same exe causes the problem to appear again, until that name of the exe is ran twice.
 * Reimplement or remove AES functionality
 * Add application icon
 
