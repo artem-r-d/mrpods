@@ -22,7 +22,7 @@ Current Compatibility
 |       | x86  | x64  |
 |-------|------|------|
 | Debug | Ready     | Needs x64 TWAIN fix     |
-| Release | Not Ready | Needs x64 TWAIN fix     |
+| Release | Ready | Needs x64 TWAIN fix     |
 
 TODO: 
 * Reimplement or remove AES functionality
