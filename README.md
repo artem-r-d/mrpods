@@ -26,7 +26,7 @@ Current Compatibility
 
 TODO: 
 * Reimplement or remove AES functionality
-* Clean up x86 Release
+* Add application icon
 
 Project Goals
 -------------
