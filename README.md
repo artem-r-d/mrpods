@@ -38,8 +38,7 @@ Compilation
 2. Install Visual Studio 2022 (Community Edition without logging in is fine)
 3. Install the following Visual Studio components: Desktop development with C++, C++ MFC for latest v143 build tools (x86 & x64)
 4. Open mrpods.sln solution
-5. Right click mrpods and in the properties update libraries locations. Linker > All Options (scroll up) > D:\cloud\pro\Pro\paperbak\mrpods-main\BZLIB; change this to wherever BZLIB folder is for you. Make sure to repeat this process for Release/Debug by selecting them at the top. 
-6. Build / build + run
+5. Build / build + run
 
 Changelog
 ---------
