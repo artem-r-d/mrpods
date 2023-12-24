@@ -22,10 +22,10 @@ Current Compatibility
 |       | x86  | x64  |
 |-------|------|------|
 | Debug | Ready     | Needs x64 TWAIN fix     |
-| Release | Not Ready* | Needs x64 TWAIN fix     |
+| Release | Ready | Needs x64 TWAIN fix     |
 
 TODO: 
-* Fix x86 Release (Buffer overflow in Selectoutfile function in Service.cpp
+* Fix or remove AES
 * Add application icon
 
 Project Goals
