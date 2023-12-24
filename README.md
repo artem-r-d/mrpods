@@ -25,8 +25,7 @@ Current Compatibility
 | Release | Not Ready* | Needs x64 TWAIN fix     |
 
 TODO: 
-* Fix x86 Release (Access Violation/memory issue. When testing Release bitmap decoding, program will fail bitmap decoding when ran for the first time (Access violation writing location). Renaming the same exe causes the problem to appear again, until that name of the exe is ran twice. Isolated to Windows 11 (all versions) and may have to do with new Exploit protection settings affecting memory.
-* Reimplement or remove AES functionality
+* Fix x86 Release (Buffer overflow in Selectoutfile function in Service.cpp
 * Add application icon
 
 Project Goals
