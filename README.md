@@ -60,9 +60,9 @@ The following tools are either failed attempts to rewrite PaperBack or do not co
 
 Bzib2
 -------------
-The bzip library https://sourceware.org/bzip2/downloads.html
-git://sourceware.org/git/bzip2.git
-nmake -f makefile.msc
+The bzip library https://sourceware.org/bzip2/downloads.html  
+git://sourceware.org/git/bzip2.git  
+nmake -f makefile.msc  
 
 Copyright
 -------------
