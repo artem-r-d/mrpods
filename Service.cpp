@@ -87,26 +87,33 @@ int Selectinfile(void) {
 // Asks user to enter the name of the output data file (outfile). Returns 0 on
 // success and -1 on error or if user pressed Cancel.
 int Selectoutfile(char defname[64]) {
-  char s[65],drv[_MAX_DRIVE+1],dir[_MAX_DIR],fil[_MAX_FNAME],ext[_MAX_EXT];
-  OPENFILENAME ofn;
-  // Split old path into components.
-  fnsplit(outfile,drv,dir,fil,ext);
-  // Substitute name and extention by those from the bitmap.
-  strncpy(s,defname,64); s[64]='\0';
-  fnsplit(s,NULL,NULL,fil,ext);
-  fnmerge(outfile,drv,dir,fil,ext);
-  // Call standard Save File dialog.
-  memset(&ofn,0,sizeof(ofn));
-  ofn.lStructSize=min(OPENFILENAME_SIZE_VERSION_400,sizeof(ofn));
-  ofn.hwndOwner=hwmain;
-  ofn.hInstance=hinst;
-  ofn.lpstrFilter="Any file (*.*)\0*.*\0\0";
-  ofn.lpstrFile=outfile;
-  ofn.nMaxFile=sizeof(outfile);
-  ofn.lpstrTitle="Save file as";
-  ofn.Flags=OFN_LONGNAMES;
-  return (GetSaveFileName(&ofn)==0?-1:0);
+    char s[65], drv[_MAX_DRIVE + 1], dir[_MAX_DIR], fil[_MAX_FNAME], ext[_MAX_EXT];
+    OPENFILENAME ofn;
+
+    // Split old path into components.
+    fnsplit(outfile, drv, dir, fil, ext);
+
+    // Substitute name and extension by those from the bitmap.
+    strncpy(s, defname, sizeof(s) - 1); // Use sizeof to ensure buffer size accuracy
+    s[sizeof(s) - 1] = '\0'; // Explicitly null-terminate the string
+
+    fnsplit(s, NULL, NULL, fil, ext);
+    fnmerge(outfile, drv, dir, fil, ext);
+
+    // Call standard Save File dialog.
+    memset(&ofn, 0, sizeof(ofn));
+    ofn.lStructSize = min(OPENFILENAME_SIZE_VERSION_400, sizeof(ofn));
+    ofn.hwndOwner = hwmain;
+    ofn.hInstance = hinst;
+    ofn.lpstrFilter = "Any file (*.*)\0*.*\0\0";
+    ofn.lpstrFile = outfile;
+    ofn.nMaxFile = sizeof(outfile);
+    ofn.lpstrTitle = "Save file as";
+    ofn.Flags = OFN_LONGNAMES;
+
+    return (GetSaveFileName(&ofn) == 0 ? -1 : 0);
 };
+
 
 // Asks user to enter the name of the input bitmap file (inbmp). Returns 0 on
 // success and -1 on error or if user pressed Cancel.
