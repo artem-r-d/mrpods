@@ -94,15 +94,15 @@ int CALLBACK Aboutdlgproc(HWND hw,UINT msg,WPARAM wp,LPARAM lp) {
     case WM_INITDIALOG:
       sprintf(s,"\nMRPODS v%i.%02i\n"
         "built off PaperBack v1.10\n\n"
-        "Copyright © 2023 Artem Doll (rewrite)\n"
-        "Copyright © 2007 Oleh Yuschuk (creator)\n"
-        "Copyright © 2013 Michael Mohr (AES fix)\n\n"
+        "Copyright Â© 2023 Artem Doll (rewrite)\n"
+        "Copyright Â© 2007 Oleh Yuschuk (creator)\n"
+        "Copyright Â© 2013 Michael Mohr (AES fix)\n\n"
         "Reed-Solomon ECC:\n"
-        "Copyright © 2002 Phil Karn (GPL)\n\n"
+        "Copyright Â© 2002 Phil Karn (GPL)\n\n"
         "Bzip2 data compression:\n"
-        "Copyright © 1996-2010 Julian R. Seward (see sources)\n\n"
+        "Copyright Â© 1996-2010 Julian R. Seward (see sources)\n\n"
         "AES and SHA code:\n"
-        "Copyright © 1998-2010, Brian Gladman (3-clause BSD)\n\n"
+        "Copyright Â© 1998-2010, Brian Gladman (3-clause BSD)\n\n"
         "----- THIS SOFTWARE IS FREE -----\n"
         "Released under GNU Public License (GPL 3+)\n"
         "Full sources available\n"
@@ -603,7 +603,13 @@ int PASCAL WinMain(HINSTANCE hi,HINSTANCE hprev,LPSTR cmdline,int show) {
 ////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////// Borland functions /////////////////////////////
 int        fnsplit(const char* path, char* drive, char* dir, char* file, char* ext)
+
 {
+    if (drive != NULL) {
+        memset(drive, 0, _MAX_DRIVE + 1);
+        // Other operations on 'drive'
+    }
+
     if (*path == 0)
         return 0;
 
@@ -611,7 +617,11 @@ int        fnsplit(const char* path, char* drive, char* dir, char* file, char* e
 
     if (drive) {
         // the resulting "drive" includes trailing slash; write 0 over it to terminate the string
-        strncpy(drive, path, pdir - path);
+        //strncpy(drive, path, pdir - path);
+        size_t drive_length = pdir - path;
+        strncpy(drive, path, drive_length);
+        drive[drive_length] = '\0';  // Ensure null termination
+
         // FIX: that slash was used in Printnextpage() to compose the path.
         // NOTE that _MAX_DRIVE is defined as 3, but we need to store at least 3 characters
         // plus terminating 0. I've updated all uses of _MAX_DRIVE to allocate (_MAX_DRIVE+1)
