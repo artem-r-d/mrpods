@@ -94,15 +94,15 @@ int CALLBACK Aboutdlgproc(HWND hw,UINT msg,WPARAM wp,LPARAM lp) {
     case WM_INITDIALOG:
       sprintf(s,"\nMRPODS v%i.%02i\n"
         "built off PaperBack v1.10\n\n"
-        "Copyright © 2023 Artem Doll (rewrite)\n"
-        "Copyright © 2007 Oleh Yuschuk (creator)\n"
-        "Copyright © 2013 Michael Mohr (AES fix)\n\n"
+        "Copyright 2024 Artem Doll (rewrite)\n"
+        "Copyright 2007 Oleh Yuschuk (creator)\n"
+        "Copyright 2013 Michael Mohr (AES fix)\n\n"
         "Reed-Solomon ECC:\n"
-        "Copyright © 2002 Phil Karn (GPL)\n\n"
+        "Copyright 2002 Phil Karn (GPL)\n\n"
         "Bzip2 data compression:\n"
-        "Copyright © 1996-2010 Julian R. Seward (see sources)\n\n"
+        "Copyright 1996-2010 Julian R. Seward (see sources)\n\n"
         "AES and SHA code:\n"
-        "Copyright © 1998-2010, Brian Gladman (3-clause BSD)\n\n"
+        "Copyright 1998-2010, Brian Gladman (3-clause BSD)\n\n"
         "----- THIS SOFTWARE IS FREE -----\n"
         "Released under GNU Public License (GPL 3+)\n"
         "Full sources available\n"
@@ -519,6 +519,8 @@ int PASCAL WinMain(HINSTANCE hi,HINSTANCE hprev,LPSTR cmdline,int show) {
         if (msg.message!=WM_KEYDOWN || Changeblockselection(msg.wParam)==1) {
           TranslateMessage(&msg);
           DispatchMessage(&msg);
+          if (msg.message == WM_QUIT)
+              break;
         };
       };
     };
