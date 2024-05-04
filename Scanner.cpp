@@ -3,10 +3,8 @@
 // MRPODS -- Machine-Readable Printed Optical Data Sheets                     //
 // https://arxiv.org/abs/2312.10275                                           //
 //                                                                            //
-// Copyright (c) 2023 Artem Doll                                              //
+// Copyright (c) 2024 Artem Doll                                              //
 // Copyright (c) 2007 Oleh Yuschuk                                            //
-// ollydbg at t-online de (set Subject to 'paperback' or be filtered out!)    //
-// PaperBack -- high density backups on plain paper                           //
 //                                                                            //
 // This file is part of MRPODS, which is built off                            //
 // Oleh Yuschuk's PaperBack https://ollydbg.de/Paperbak/                      //
@@ -48,7 +46,7 @@
 #include "twain.h"
 #pragma hdrstop
 
-#include "paperbak.h"
+#include "mrpods.h"
 #include "resource.h"
 
 static HINSTANCE htwaindll;            // Handle of TWAIN_32.DLL
