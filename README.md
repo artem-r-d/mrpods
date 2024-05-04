@@ -62,9 +62,15 @@ The following tools are either failed attempts to rewrite PaperBack or do not co
 
 Bzip2
 -------------
-The bzip library https://sourceware.org/bzip2/downloads.html  
-git://sourceware.org/git/bzip2.git  
-nmake -f makefile.msc  
+Huge thank you to Phil Ross for his Visual Studio libbz2.dll Build found here: https://github.com/philr/bzip2-windows 
+
+https://github.com/philr/bzip2-windows/releases/tag/v1.0.8.0
+
+Windows binaries (32-bit and 64-bit) for bzip2 version 1.0.8.
+
+Source code for bzip2 can be obtained from https://www.sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz.
+
+All binaries depend on the Visual Studio 2015 C Runtime Library (vcruntime140.dll). This can be installed using the Visual C++ Redistributable Packages for Visual Studio 2015, 2017 and 2019 installer. See Microsoft's Latest Supported Visual C++ Downloads page for download links.
 
 Copyright
 -------------
@@ -79,9 +85,6 @@ Copyright © 2002 Phil Karn (GPL)
   
 Bzip2 data compression  
 Copyright © 1996-2010 Julian R. Seward (see sources)  
-  
-AES and SHA code  
-Copyright © 1998-2010, Brian Gladman (3-clause BSD)  
   
 ----- THIS SOFTWARE IS FREE -----  
 Released under GNU Public License (GPL 3+)  
