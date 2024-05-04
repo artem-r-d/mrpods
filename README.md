@@ -79,6 +79,23 @@ Source code for bzip2 can be obtained from https://www.sourceware.org/pub/bzip2/
 
 All binaries depend on the Visual Studio 2015 C Runtime Library (vcruntime140.dll). This can be installed using the Visual C++ Redistributable Packages for Visual Studio 2015, 2017 and 2019 installer. See Microsoft's Latest Supported Visual C++ Downloads page for download links.
 
+Editing Resource.rc and Icons
+-------------
+OPTIONS.RC and Resource.rc are legacy Borland files so one way you can edit the program icon is by right clicking Resource.rc in the solution explorer > Open with > C++ Source Code Editor
+
+Edit the icon as needed, if you are building 32-bit release, use logox32.ico
+
+If you are building 64-bit release, use logox64.ico
+
+// OS taskbar icon (HIDPI)
+
+IDI_ICON1               ICON                    "logo\\logox64.ico"
+
+// Title bar icon (tiny)
+
+ICON_MAIN               ICON                    "logo\\logox64.ico"
+Logos converted from .png to .ico with https://redketchup.io/
+
 Copyright
 -------------
 MRPODS  
