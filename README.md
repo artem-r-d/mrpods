@@ -122,7 +122,7 @@ Copyright
 MRPODS  
 built off PaperBack v1.10  
 
-Copyright © 2023 Artem Doll (rewrite)  
+Copyright © 2024 Artem Doll (rewrite)  
 Copyright © 2007 Oleh Yuschuk (creator)  
   
 Reed-Solomon ECC:  
