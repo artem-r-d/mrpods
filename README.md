@@ -52,6 +52,7 @@ TODO
 -------------
 * Add GIF/video of program in action
 * Add a binary release
+* Add a scanning bridge to switch to WIA to resolve TWAIN x86 dependency in x64. 
 
 Project Goals
 -------------
