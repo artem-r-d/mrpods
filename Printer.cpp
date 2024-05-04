@@ -3,10 +3,8 @@
 // MRPODS -- Machine-Readable Printed Optical Data Sheets                     //
 // https://arxiv.org/abs/2312.10275                                           //
 //                                                                            //
-// Copyright (c) 2023 Artem Doll                                              //
+// Copyright (c) 2024 Artem Doll                                              //
 // Copyright (c) 2007 Oleh Yuschuk                                            //
-// ollydbg at t-online de (set Subject to 'paperback' or be filtered out!)    //
-// PaperBack -- high density backups on plain paper                           //
 //                                                                            //
 // This file is part of MRPODS, which is built off                            //
 // Oleh Yuschuk's PaperBack https://ollydbg.de/Paperbak/                      //
@@ -46,11 +44,9 @@
 #include <direct.h>
 #include <math.h>
 #include "twain.h"
-#include "CRYPTO/aes.h"
-#include "CRYPTO/pwd2key.h"
 #pragma hdrstop
 
-#include "paperbak.h"
+#include "mrpods.h"
 #include "resource.h"
 
 //#pragma comment(lib, "BZLIB/bzip2.lib")
@@ -328,7 +324,6 @@ static void Preparefiletoprint(t_printdata *print) {
     return; };
   // Set options.
   print->compression=compression;
-  print->encryption=encryption;
   print->printheader=printheader;
   print->printborder=printborder;
   print->redundancy=redundancy;
@@ -458,63 +453,6 @@ static BOOL WINAPI GenerateRandomData(DWORD dwLen, BYTE *pbBuffer) {
   return result;
 }
 
-// Encrypts data. I ask to enter password individually for each file. AES-256
-// encryption is very fast, so we don't need to split it into several steps.
-static void Encryptdata(t_printdata *print) {
-  //int n;
-  //uchar *salt,key[AESKEYLEN],iv[16];
-  //aes_encrypt_ctx ctx[1];
-  // Calculate 16-bit CRC of possibly compressed but unencrypted data. I use
-  // it to verify data after decryption: the safe way to assure that password
-  // is entered correctly.
-  print->bufcrc=Crc16(print->buf,print->alignedsize);
-  print->encryption = 0; // TODO: vf
-  // Skip rest of this step if encryption is not required.
-  if (print->encryption==0) {
-    print->step++;
-    return; };
-  // Ask for password. If user cancels, skip file.
-  Message("Encrypting data...",0);
-  //if (Confirmpassword()!=0) {          // User cancelled encryption
-  //  Message("",0);
-  //  Stopprinting(print);
-  //  return; };
-  //// Empty password means: leave data unencrypted.
-  //if (password[0]=='\0') {
-  //  print->encryption=0;
-  //  print->step++;
-  //  return; };
-  //// Encryption routine expects that password is exactly PASSLEN bytes long.
-  //// Fill rest of the password with zeros.
-  //n=strlen(password);
-  //salt=(uchar *)(print->superdata.name)+32; // hack: put the salt & iv at the end of the name field
-  //if(GenerateRandomData(32, salt) == FALSE) {
-  //  Message("Failed to generate salt/iv",0);
-  //  Stopprinting(print);
-  //  return; };
-  //derive_key((const uchar *)password, n, salt, 16, 524288, key, AESKEYLEN);
-  //memset(password,0,sizeof(password));
-  //// Initialize encryption.
-  //memset(ctx,0,sizeof(aes_encrypt_ctx));
-  //if(aes_encrypt_key((const uchar *)key, AESKEYLEN, ctx) == EXIT_FAILURE) {
-  //  memset(key,0,AESKEYLEN);
-  //  Message("Failed to set encryption key",0);
-  //  Stopprinting(print);
-  //  return; };
-  //memset(key,0,AESKEYLEN);
-  //// Encrypt data. AES works with 16-byte data chunks.
-  //memcpy(iv, salt+16, 16); // the second 16-byte block in 'salt' is the IV
-  //if(aes_cbc_encrypt(print->buf, print->buf, print->alignedsize, iv, ctx) == EXIT_FAILURE) {
-  //  memset(ctx,0,sizeof(aes_encrypt_ctx));
-  //  Message("Failed to encrypt data",0);
-  //  Stopprinting(print);
-  //  return; };
-  //// Clear password and encryption control block. We no longer need them.
-  //memset(ctx,0,sizeof(aes_encrypt_ctx));
-  //// Step finished.
-  //print->step++;
-};
-
 // Prepares for printing. Despite its size, this routine is very quick.
 static void Initializeprinting(t_printdata *print) {
   int i,dx,dy,px,py,nx,ny,width,height,success,rastercaps;
@@ -530,8 +468,6 @@ static void Initializeprinting(t_printdata *print) {
   print->superdata.origsize=print->origsize;
   if (print->compression)
     print->superdata.mode|=PBM_COMPRESSED;
-  if (print->encryption)
-    print->superdata.mode|=PBM_ENCRYPTED;
   print->superdata.attributes=(uchar)(print->attributes &
     (FILE_ATTRIBUTE_READONLY|FILE_ATTRIBUTE_HIDDEN|
     FILE_ATTRIBUTE_SYSTEM|FILE_ATTRIBUTE_ARCHIVE|
@@ -1032,16 +968,13 @@ void Nextdataprintingstep(t_printdata *print) {
     case 4:                            // Finish compression and close file
       Finishcompression(print);
       break;
-    case 5:                            // Encrypt data
-      Encryptdata(print);
-      break;
-    case 6:                            // Initialize printing
+    case 5:                            // Initialize printing
       Initializeprinting(print);
       break;
-    case 7:                            // Print pages, one at a time
+    case 6:                            // Print pages, one at a time
       Printnextpage(print);
       break;
-    case 8:                            // Finish printing.
+    case 7:                            // Finish printing.
       Stopprinting(print);
       Message("",0);
       print->step=0;
