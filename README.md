@@ -31,9 +31,25 @@ Current Compatibility
 | Debug | Ready     | Ready (with 32bit TWAIN mode)     |
 | Release | Ready | Ready (with 32bit TWAIN mode)     |
 
-TODO:
-* Add compatibility matrix for legacy PaperBack data
-* Further refine bzip2 and libbz2 building instructions in the README
+Legacy Compatibility
+-------------
+| Feature               | MRPODS          | PaperBack v1.10           |
+|-----------------------|---------------------|--------------------|
+| Encode/Decode Data   | :white_check_mark:  | :white_check_mark: |
+| Encrypt/Decrypt Data*   | :x:  | :white_check_mark: |
+
+*Built-in AES-192 has been deprecated. If you need to decode legacy AES-192 data, please use PaperBack v1.10. MRPODS cannot physically decrypt PaperBack v1.10 AES data. If MRPODS identifies legacy PaperBack v1.x AES-192 data in the buffer, a message stating AES has been deprecated will be shown, and nothing further can be done to actually decode the data.
+
+The AES functionality has been removed from MRPODS to simplify the codebase and address concerns related to custom cryptographic implementations. Consequently, Michael Mohr's contributions related to AES have been omitted from the current codebase, and his name has been removed from the copyright disclaimer to prevent any potential confusion. This update ensures that MRPODS complies with the [Export Administration Regulations](https://web.stanford.edu/group/export/encrypt_ear.html).
+
+If you still require this functionality, you may use 7zip, WinRar, KeePassXC or any other popular audited tool to encrypt the data before transforming it with MRPODS. 
+
+Memory Design and Visual Studio mrpods.vcxproj
+-------------
+The software has been transitioned from legacy Borland C++ code to function reliably on modern systems without memory issues. While the design and logic flow have been preserved, users are advised to closely adhere to the compiler options specified for each build target. These settings have been validated for decoding documents created with the original PaperBack v1.10 and should remain unchanged without subsequent individual testing. Additionally, compilation optimizations are disabled to maintain stability without further code modifications.
+
+TODO
+-------------
 * Add GIF/video of program in action
 * Add a binary release
 
