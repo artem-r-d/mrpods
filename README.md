@@ -64,7 +64,7 @@ Compilation
 2. Install Visual Studio 2022 (Community Edition without logging in is fine)
 3. Install the following Visual Studio components: Desktop development with C++, C++ MFC for latest v143 build tools (x86 & x64), C++ Clang tools for Windows (16.0.5 - x64/x86)
 4. Open mrpods.sln solution
-5. Build / build + run
+5. Build Release x86.
 
 Changelog
 ---------
