@@ -17,6 +17,13 @@ Science Paper
 -------------
 https://arxiv.org/abs/2312.10275
 
+Improvements Over Original PaperBack v1.10
+-------------
+* Due to how the original was written and how much Windows has changed over time, PaperBack v1.10 has an issue breaking out of the main WinMain loop.
+* New faster 64-bit version and faster 32-bit version over the original Borland 32-bit only version.
+* Even without performance optimizations, MRPODS is about 30% faster decoding bitmaps.
+* Ease of build and compile with Visual Studio 2022.
+
 Current Compatibility
 -------------
 |       | x86  | x64  |
