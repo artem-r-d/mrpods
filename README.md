@@ -28,8 +28,8 @@ Current Compatibility
 -------------
 |       | x86  | x64  |
 |-------|------|------|
-| Debug | Ready     | Ready (with 32bit TWAIN mode)     |
-| Release | Ready | Ready (with 32bit TWAIN mode)     |
+| Debug | Ready     | Builds with scanner disabled     |
+| Release | Ready | Builds with scanner disabled    |
 
 Legacy Compatibility
 -------------
