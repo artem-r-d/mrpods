@@ -26,7 +26,7 @@ Improvements Over Original PaperBack v1.10
 * Even without performance optimizations, MRPODS is about 30% faster decoding bitmaps.
 * Ease of build and compile with Visual Studio 2022.
 
-Current Compatibility
+Build Status
 -------------
 |       | x86  | x64  |
 |-------|------|------|
