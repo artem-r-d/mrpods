@@ -3,10 +3,8 @@
 // MRPODS -- Machine-Readable Printed Optical Data Sheets                     //
 // https://arxiv.org/abs/2312.10275                                           //
 //                                                                            //
-// Copyright (c) 2023 Artem Doll                                              //
+// Copyright (c) 2024 Artem Doll                                              //
 // Copyright (c) 2007 Oleh Yuschuk                                            //
-// ollydbg at t-online de (set Subject to 'paperback' or be filtered out!)    //
-// PaperBack -- high density backups on plain paper                           //
 //                                                                            //
 // This file is part of MRPODS, which is built off                            //
 // Oleh Yuschuk's PaperBack https://ollydbg.de/Paperbak/                      //
@@ -46,11 +44,9 @@
 #include <direct.h>
 #include <math.h>
 #include "twain.h"
-//#include "CRYPTO/aes.h"
-//#include "CRYPTO/pwd2key.h"
 #pragma hdrstop
 
-#include "paperbak.h"
+#include "mrpods.h"
 #include "resource.h"
 
 
@@ -287,9 +283,8 @@ int Saverestoredfile(int slot,int force) {
   int n,success;
   ushort filecrc;
   ulong l,length;
-  uchar *bufout,*data,*tempdata,*salt,key[AESKEYLEN],iv[16];
+  uchar* bufout, * data;
   t_fproc *pf;
-  //aes_decrypt_ctx ctx[1];
   HANDLE hfile;
   if (slot<0 || slot>=NFILE)
     return -1;                         // Invalid index of file descriptor
@@ -299,45 +294,12 @@ int Saverestoredfile(int slot,int force) {
   if (pf->ndata!=pf->nblock && force==0)
     return -1;                         // Still incomplete data
   Message("",0);
-  // If data is encrypted, decrypt it to temporary buffer. Decryption in place
-  // is possible, but the whole data would be lost if password is incorrect.
+  // Check if data is encrypted, if so, show AES not supported message.
+  // Built in encryption has been deprecated in favor of 7zip and rar options.
   if (pf->mode & PBM_ENCRYPTED) {
-    //if (pf->datasize & 0x0000000F) {
-    //  Reporterror("Encrypted data is not aligned");
-    //  return -1; };
-    //if (Getpassword()!=0)
-    //  return -1;                       // User cancelled decryption
-    //tempdata=(uchar *)GlobalAlloc(GMEM_FIXED,pf->datasize);
-    //if (tempdata==NULL) {
-    //  Reporterror("Low memory, can't decrypt data");
-    //  return -1; };
-    //n=strlen(password);
-    //salt=(uchar *)(pf->name)+32; // hack: put the salt & iv at the end of the name field
-    //derive_key((const uchar *)password, n, salt, 16, 524288, key, AESKEYLEN);
-    //memset(password,0,sizeof(password));
-    //memset(ctx,0,sizeof(aes_decrypt_ctx));
-    //if(aes_decrypt_key((const uchar *)key,AESKEYLEN,ctx) == EXIT_FAILURE) {
-    //  memset(key,0,AESKEYLEN);
-    //  Reporterror("Failed to set decryption key");
-    //  return -1; };
-    //memset(key,0,AESKEYLEN);
-    //memcpy(iv, salt+16, 16); // the second 16-byte block in 'salt' is the IV
-    //if(aes_cbc_decrypt(pf->data,tempdata,pf->datasize,iv,ctx) == EXIT_FAILURE) {
-    //  Reporterror("Failed to decrypt data");
-    //  memset(ctx,0,sizeof(aes_decrypt_ctx));
-    //  return -1; };
-    //memset(ctx,0,sizeof(aes_decrypt_ctx));
-    //filecrc=Crc16(tempdata,pf->datasize);
-    //if (filecrc!=pf->filecrc) {
-    //  Reporterror("Invalid password, please try again");
-    //  GlobalFree((HGLOBAL)tempdata);
-    //  return -1; }
-    //else {
-    //  GlobalFree((HGLOBAL)pf->data);
-    //  pf->data=tempdata;
-    //  pf->mode&=~PBM_ENCRYPTED;
-    //};
-  };
+      Reporterror("AES decryption is no longer supported");
+      return -1;
+  }
   // If data is compressed, unpack it to temporary buffer.
   if ((pf->mode & PBM_COMPRESSED)==0) {
     // Data is not compressed.
