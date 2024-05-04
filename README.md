@@ -21,12 +21,11 @@ Current Compatibility
 -------------
 |       | x86  | x64  |
 |-------|------|------|
-| Debug | Ready     | Needs x64 TWAIN fix     |
-| Release | Ready | Needs x64 TWAIN fix     |
+| Debug | Ready     | Ready (with 32bit TWAIN mode)     |
+| Release | Ready | Ready (with 32bit TWAIN mode)     |
 
-TODO: 
-* Fix or remove AES
-* Add application icon
+TODO:
+* Add compatability matrix for legacy PaperBack data
 
 Project Goals
 -------------
@@ -71,7 +70,6 @@ built off PaperBack v1.10
 
 Copyright © 2023 Artem Doll (rewrite)  
 Copyright © 2007 Oleh Yuschuk (creator)  
-Copyright © 2013 Michael Mohr (AES fix)  
   
 Reed-Solomon ECC:  
 Copyright © 2002 Phil Karn (GPL)  
