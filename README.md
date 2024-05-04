@@ -9,9 +9,11 @@
 Back up digital files to paper.
 Rewrite and continuation of Oleh Yuschuk's [PaperBack](https://ollydbg.de/Paperbak/) in modern C++.
 
-Screenshots
+Showcase
 -------------
-<img src="https://raw.githubusercontent.com/artem-r-d/mrpods/main/screenshot-1.png" width="500" alt="Screenshot">
+<img src="https://raw.githubusercontent.com/artem-r-d/mrpods/main/showcase/screenshot-1.png" width="500" alt="Screenshot">
+<img src="https://raw.githubusercontent.com/artem-r-d/mrpods/main/showcase/mrpods_decoding.gif" width="500" alt="Screenshot">
+<img src="https://raw.githubusercontent.com/artem-r-d/mrpods/main/showcase/mrpods_sheet.gif" width="500" alt="Screenshot">
 
 Science Paper
 -------------
