@@ -50,10 +50,8 @@ Memory Design and Visual Studio mrpods.vcxproj
 -------------
 The software has been transitioned from legacy Borland C++ code to function reliably on modern systems without memory issues. While the design and logic flow have been preserved, users are advised to closely adhere to the compiler options specified for each build target. These settings have been validated for decoding documents created with the original PaperBack v1.10 and should remain unchanged without subsequent individual testing. Additionally, compilation optimizations are disabled to maintain stability without further code modifications.
 
-TODO
+TODO:
 -------------
-* Add GIF/video of program in action
-* Add a binary release
 * Add a scanning bridge to switch to WIA to resolve TWAIN x86 dependency in x64. 
 
 Project Goals
