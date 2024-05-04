@@ -3,10 +3,8 @@
 // MRPODS -- Machine-Readable Printed Optical Data Sheets                     //
 // https://arxiv.org/abs/2312.10275                                           //
 //                                                                            //
-// Copyright (c) 2023 Artem Doll                                              //
+// Copyright (c) 2024 Artem Doll                                              //
 // Copyright (c) 2007 Oleh Yuschuk                                            //
-// ollydbg at t-online de (set Subject to 'paperback' or be filtered out!)    //
-// PaperBack -- high density backups on plain paper                           //
 //                                                                            //
 // This file is part of MRPODS, which is built off                            //
 // Oleh Yuschuk's PaperBack https://ollydbg.de/Paperbak/                      //
@@ -51,7 +49,7 @@
 #pragma hdrstop
 
 #define MAINPROG
-#include "paperbak.h"
+#include "mrpods.h"
 #include "resource.h"
 
 #pragma comment(lib, "comctl32.lib")
@@ -63,7 +61,7 @@
 // Data is kept in matrix 32x32 points. It consists of:
 //
 //   4-byte address (combined with redundancy count) or special marker;
-//   90-byte compressed and encrypted data;
+//   90-byte compressed data;
 //   2-byte CRC of address and data (CCITT version);
 //   32-byte Reed-Solomon error correction code of the previous 96 bytes.
 //
@@ -96,13 +94,10 @@ int CALLBACK Aboutdlgproc(HWND hw,UINT msg,WPARAM wp,LPARAM lp) {
         "built off PaperBack v1.10\n\n"
         "Copyright 2024 Artem Doll (rewrite)\n"
         "Copyright 2007 Oleh Yuschuk (creator)\n"
-        "Copyright 2013 Michael Mohr (AES fix)\n\n"
         "Reed-Solomon ECC:\n"
         "Copyright 2002 Phil Karn (GPL)\n\n"
         "Bzip2 data compression:\n"
         "Copyright 1996-2010 Julian R. Seward (see sources)\n\n"
-        "AES and SHA code:\n"
-        "Copyright 1998-2010, Brian Gladman (3-clause BSD)\n\n"
         "----- THIS SOFTWARE IS FREE -----\n"
         "Released under GNU Public License (GPL 3+)\n"
         "Full sources available\n"
@@ -199,10 +194,6 @@ int CALLBACK Optionsdlgproc(HWND hw,UINT msg,WPARAM wp,LPARAM lp) {
       CheckDlgButton(hw,OPT_AUTOSAVE,(autosave?BST_CHECKED:BST_UNCHECKED));
       // Initialize best quality checkbox.
       CheckDlgButton(hw,OPT_HIQ,(bestquality?BST_CHECKED:BST_UNCHECKED));
-      // Initialize encryption checkbox.
-      CheckDlgButton(hw,OPT_ENCRYPT,(encryption?BST_CHECKED:BST_UNCHECKED));
-      // Initialize open text checkbox.
-      CheckDlgButton(hw,OPT_OPENTEXT,(opentext?BST_CHECKED:BST_UNCHECKED));
       return TRUE;
     case WM_COMMAND:
       if (LOWORD(wp)==OPT_OK) {
@@ -227,10 +218,6 @@ int CALLBACK Optionsdlgproc(HWND hw,UINT msg,WPARAM wp,LPARAM lp) {
         autosave=(IsDlgButtonChecked(hw,OPT_AUTOSAVE)==BST_CHECKED);
         // Get best quality option.
         bestquality=(IsDlgButtonChecked(hw,OPT_HIQ)==BST_CHECKED);
-        // Get encryption option.
-        encryption=(IsDlgButtonChecked(hw,OPT_ENCRYPT)==BST_CHECKED);
-        // Get open text option.
-        opentext=(IsDlgButtonChecked(hw,OPT_OPENTEXT)==BST_CHECKED);
         EndDialog(hw,0); }
       else if (LOWORD(wp)==OPT_CANCEL)
         EndDialog(hw,0);
@@ -247,106 +234,6 @@ int CALLBACK Optionsdlgproc(HWND hw,UINT msg,WPARAM wp,LPARAM lp) {
 // Displays Options dialog box.
 void Options(void) {
   DialogBox(hinst,"DIALOG_OPTIONS",hwmain,(DLGPROC)Optionsdlgproc);
-};
-
-// Window function of Confirm password dialog box.
-int CALLBACK Confirmdlgproc(HWND hw,UINT msg,WPARAM wp,LPARAM lp) {
-  int i;
-  char passcopy[PASSLEN];
-  switch (msg) {
-    case WM_INITDIALOG:
-      SendMessage(GetDlgItem(hw,PAS_ENTER),EM_SETLIMITTEXT,PASSLEN-1,0);
-      SendMessage(GetDlgItem(hw,PAS_CONFIRM),EM_SETLIMITTEXT,PASSLEN-1,0);
-      if (opentext==0) {
-        SendMessage(GetDlgItem(hw,PAS_ENTER),EM_SETPASSWORDCHAR,'*',0);
-        SendMessage(GetDlgItem(hw,PAS_CONFIRM),EM_SETPASSWORDCHAR,'*',0); };
-      return TRUE;
-    case WM_COMMAND:
-      if (LOWORD(wp)==PAS_OK) {
-        GetDlgItemText(hw,PAS_ENTER,password,PASSLEN);
-        GetDlgItemText(hw,PAS_CONFIRM,passcopy,PASSLEN);
-        if (strcmp(password,passcopy)!=0) {
-          SetDlgItemText(hw,PAS_TEXT,"Different passwords. Please try again:");
-          SetDlgItemText(hw,PAS_ENTER,"");
-          SetDlgItemText(hw,PAS_CONFIRM,"");
-          break; };
-        // Clear passcopy and edit controls. We don't need to leave password
-        // in memory or in the swap file. Question: what to do with Edit undo
-        // feature?
-        for (i=0; i<PASSLEN-1; i++) passcopy[i]=(char)('A'+i%32);
-        passcopy[PASSLEN-1]=0;
-        SetDlgItemText(hw,PAS_ENTER,passcopy);
-        SetDlgItemText(hw,PAS_CONFIRM,passcopy);
-        EndDialog(hw,0); }
-      else if (LOWORD(wp)==PAS_CANCEL) {
-        for (i=0; i<PASSLEN-1; i++) passcopy[i]=(char)('A'+i%32);
-        passcopy[PASSLEN-1]=0;
-        SetDlgItemText(hw,PAS_ENTER,passcopy);
-        SetDlgItemText(hw,PAS_CONFIRM,passcopy);
-        strcpy(password,passcopy);
-        EndDialog(hw,-1); };
-      break;
-    case WM_SYSCOMMAND:
-      if ((wp & 0xFFF0)==SC_CLOSE) {
-        for (i=0; i<PASSLEN-1; i++) passcopy[i]=(char)('A'+i%32);
-        passcopy[PASSLEN-1]=0;
-        SetDlgItemText(hw,PAS_ENTER,passcopy);
-        SetDlgItemText(hw,PAS_CONFIRM,passcopy);
-        strcpy(password,passcopy);
-        EndDialog(hw,-1); };
-      break;
-    default: break;
-  };
-  return 0;
-};
-
-// Displays Enter password dialog with confirmation line. Returns 0 on success
-// (password is in global variable pasword) or non-zero if user pressed Cancel.
-int Confirmpassword(void) {
-  return DialogBox(hinst,"DIALOG_CONFIRM",hwmain,(DLGPROC)Confirmdlgproc);
-};
-
-// Window function of Password dialog box.
-int CALLBACK Passworddlgproc(HWND hw,UINT msg,WPARAM wp,LPARAM lp) {
-  int i;
-  char paserase[PASSLEN];
-  switch (msg) {
-    case WM_INITDIALOG:
-      SendMessage(GetDlgItem(hw,PAS_ENTER),EM_SETLIMITTEXT,PASSLEN-1,0);
-      if (opentext==0)
-        SendMessage(GetDlgItem(hw,PAS_ENTER),EM_SETPASSWORDCHAR,'*',0);
-      return TRUE;
-    case WM_COMMAND:
-      if (LOWORD(wp)==PAS_OK) {
-        GetDlgItemText(hw,PAS_ENTER,password,PASSLEN);
-        // Clear edit control. We don't need to leave password in memory or in
-        // the swap file. Question: what to do with Edit undo feature?
-        for (i=0; i<PASSLEN-1; i++) paserase[i]=(char)('A'+i%32);
-        paserase[PASSLEN-1]=0;
-        SetDlgItemText(hw,PAS_ENTER,paserase);
-        EndDialog(hw,0); }
-      else if (LOWORD(wp)==PAS_CANCEL) {
-        for (i=0; i<PASSLEN-1; i++) password[i]=(char)('A'+i%32);
-        password[PASSLEN-1]=0;
-        SetDlgItemText(hw,PAS_ENTER,password);
-        EndDialog(hw,-1); };
-      break;
-    case WM_SYSCOMMAND:
-      if ((wp & 0xFFF0)==SC_CLOSE) {
-        for (i=0; i<PASSLEN-1; i++) password[i]=(char)('A'+i%32);
-        password[PASSLEN-1]=0;
-        SetDlgItemText(hw,PAS_ENTER,password);
-        EndDialog(hw,-1); };
-      break;
-    default: break;
-  };
-  return 0;
-};
-
-// Displays Password dialog without confirmation line. Returns 0 on success
-// (password is in global variable pasword) or non-zero if user pressed Cancel.
-int Getpassword(void) {
-  return DialogBox(hinst,"DIALOG_PASSWORD",hwmain,(DLGPROC)Passworddlgproc);
 };
 
 // Windows function of main MRPODS window.
@@ -459,8 +346,6 @@ int PASCAL WinMain(HINSTANCE hi,HINSTANCE hprev,LPSTR cmdline,int show) {
   printborder=GetPrivateProfileInt("Settings","Border",0,inifile);
   autosave=GetPrivateProfileInt("Settings","Autosave",1,inifile);
   bestquality=GetPrivateProfileInt("Settings","Best quality",1,inifile);
-  encryption=GetPrivateProfileInt("Settings","Encryption",0,inifile);
-  opentext=GetPrivateProfileInt("Settings","Open password",0,inifile);
   // Get printer's page size.
   marginunits=GetPrivateProfileInt("Settings","Margin units",0,inifile);
   marginleft=GetPrivateProfileInt("Settings","Margin left",1000,inifile);
@@ -485,7 +370,7 @@ int PASCAL WinMain(HINSTANCE hi,HINSTANCE hprev,LPSTR cmdline,int show) {
   hmenu=LoadMenu(hinst,"MENU_MAIN");
   hwmain=CreateWindowEx(
     WS_EX_ACCEPTFILES,
-    MAINCLASS,"MRPODS v1.10",
+    MAINCLASS,"MRPODS v1.20",
     WS_OVERLAPPED|WS_CAPTION|WS_SYSMENU|WS_MINIMIZEBOX|
       WS_CLIPCHILDREN|WS_VISIBLE,
     CW_USEDEFAULT,CW_USEDEFAULT,dx,dy,
@@ -567,10 +452,6 @@ int PASCAL WinMain(HINSTANCE hi,HINSTANCE hprev,LPSTR cmdline,int show) {
     WritePrivateProfileString("Settings","Autosave",s,inifile);
   sprintf(s,"%i",bestquality);
     WritePrivateProfileString("Settings","Best quality",s,inifile);
-  sprintf(s,"%i",encryption);
-    WritePrivateProfileString("Settings","Encryption",s,inifile);
-  sprintf(s,"%i",opentext);
-    WritePrivateProfileString("Settings","Open password",s,inifile);
   // Save printer's page size.
   if (pagesetup.Flags & PSD_INTHOUSANDTHSOFINCHES) marginunits=1;
   else if (pagesetup.Flags & PSD_INHUNDREDTHSOFMILLIMETERS) marginunits=2;
@@ -588,9 +469,6 @@ int PASCAL WinMain(HINSTANCE hi,HINSTANCE hprev,LPSTR cmdline,int show) {
       WritePrivateProfileString("Settings","Margin bottom",s,inifile);
     ;
   };
-  // Clear password. It's a bad idea to keep password in the swap file after
-  // shutdown.
-  memset(password,0,sizeof(password));
   // Clean up.
   Freeprocdata(&procdata);
   Stopprinting(&printdata);
