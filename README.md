@@ -25,7 +25,10 @@ Current Compatibility
 | Release | Ready | Ready (with 32bit TWAIN mode)     |
 
 TODO:
-* Add compatability matrix for legacy PaperBack data
+* Add compatibility matrix for legacy PaperBack data
+* Further refine bzip2 and libbz2 building instructions in the README
+* Add GIF/video of program in action
+* Add a binary release
 
 Project Goals
 -------------
@@ -57,7 +60,7 @@ The following tools are either failed attempts to rewrite PaperBack or do not co
 * https://github.com/colorsafe/colorsafe/issues/17
 * https://github.com/fdobrovolny/python-paperbak
 
-Bzib2
+Bzip2
 -------------
 The bzip library https://sourceware.org/bzip2/downloads.html  
 git://sourceware.org/git/bzip2.git  
