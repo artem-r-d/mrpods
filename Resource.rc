@@ -3,10 +3,8 @@
 // MRPODS -- Machine-Readable Printed Optical Data Sheets                     //
 // https://arxiv.org/abs/2312.10275                                           //
 //                                                                            //
-// Copyright (c) 2023 Artem Doll                                              //
+// Copyright (c) 2024 Artem Doll                                              //
 // Copyright (c) 2007 Oleh Yuschuk                                            //
-// ollydbg at t-online de (set Subject to 'paperback' or be filtered out!)    //
-// PaperBack -- high density backups on plain paper                           //
 //                                                                            //
 // This file is part of MRPODS, which is built off                            //
 // Oleh Yuschuk's PaperBack https://ollydbg.de/Paperbak/                      //
@@ -39,11 +37,27 @@
 // -------------------------------------------------------------------------- //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
-//#include "afxres.h"
+
 #include "windows.h"
 
 #include "resource.h"
 
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+// Edit the icon as needed, if you are building 32-bit release, use logox32.ico
+// If you are building 64-bit release, use logox64.ico
+// OS taskbar icon (HIDPI)
+IDI_ICON1               ICON                    "logo\\logox32.ico"
+// Title bar icon (tiny)
+ICON_MAIN               ICON                    "logo\\logox32.ico"
+
+// Legacy icon code
+// 
 //ICON_MAIN ICON
 //{
 // '00 00 01 00 02 00 20 20 10 00 00 00 00 00 E8 02'
@@ -168,34 +182,6 @@ FONT 8, "MS Sans Serif"
  GROUPBOX "Decoding", -1, 131, 6, 118, 51, BS_GROUPBOX | WS_GROUP
  CHECKBOX "Autosave complete files", OPT_AUTOSAVE, 141, 20, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
  CHECKBOX "Determine best quality", OPT_HIQ, 141, 37, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
- GROUPBOX "Encryption", -1, 131, 64, 118, 51, BS_GROUPBOX | WS_GROUP
- CHECKBOX "Encrypt data", OPT_ENCRYPT, 141, 78, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
- CHECKBOX "Password in open text", OPT_OPENTEXT, 141, 95, 90, 12, BS_AUTOCHECKBOX | WS_TABSTOP
  DEFPUSHBUTTON "OK", OPT_OK, 131, 120, 56, 14
  PUSHBUTTON "Cancel", OPT_CANCEL, 193, 120, 56, 14
 }
-
-DIALOG_CONFIRM DIALOG 32, 32, 194, 93
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | DS_3DLOOK
-CAPTION "AES data encryption"
-FONT 8, "MS Sans Serif"
-{
- LTEXT "Data will be encrypted. Please enter password:", PAS_TEXT, 9, 6, 160, 9
- EDITTEXT PAS_ENTER, 21, 19, 166, 14
- LTEXT "Confirm password:", -1, 9, 39, 120, 9
- EDITTEXT PAS_CONFIRM, 21, 52, 166, 14
- DEFPUSHBUTTON "OK", PAS_OK, 70, 73, 56, 14
- PUSHBUTTON "Cancel", PAS_CANCEL, 132, 73, 56, 14
-}
-
-DIALOG_PASSWORD DIALOG 32, 32, 194, 60
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | DS_3DLOOK
-CAPTION "Data encrypted"
-FONT 8, "MS Sans Serif"
-{
- LTEXT "Please enter password:", PAS_TEXT, 9, 6, 100, 9
- EDITTEXT PAS_ENTER, 21, 19, 166, 14
- DEFPUSHBUTTON "OK", PAS_OK, 70, 40, 56, 14
- PUSHBUTTON "Cancel", PAS_CANCEL, 132, 40, 56, 14
-}
-
