@@ -1,5 +1,6 @@
 <div align="center">
-<h1>MRPODS🐙 </h1>
+<h1>MRPODS <img src="https://raw.githubusercontent.com/artem-r-d/mrpods/main/logo/logox32.png" width="32" height="32" alt="MRPODS Logo">
+</h1>
 
 <p>Machine-Readable Printed Optical Data Sheets</p>
 </div>
@@ -10,8 +11,7 @@ Rewrite and continuation of Oleh Yuschuk's [PaperBack](https://ollydbg.de/Paperb
 
 Screenshots
 -------------
-![Screenshot 1](https://raw.githubusercontent.com/artem-r-d/mrpods/main/screenshot-1.png)
-
+<img src="https://raw.githubusercontent.com/artem-r-d/mrpods/main/screenshot-1.png" width="500" alt="Screenshot">
 
 Science Paper
 -------------
