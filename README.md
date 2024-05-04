@@ -52,7 +52,7 @@ The software has been transitioned from legacy Borland C++ code to function reli
 
 TODO:
 -------------
-* Add a scanning bridge to switch to WIA to resolve TWAIN x86 dependency in x64. 
+* Add a scanning bridge or switch to WIA to resolve TWAIN x86 dependency in x64. 
 
 Project Goals
 -------------
