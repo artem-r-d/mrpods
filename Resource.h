@@ -20,14 +20,6 @@
 #define OPT_BORDER     3107
 #define OPT_AUTOSAVE   3108
 #define OPT_HIQ        3109
-#define OPT_ENCRYPT    3110
-#define OPT_OPENTEXT   3111
 #define OPT_OK         IDOK
 #define OPT_CANCEL     IDCANCEL
-
-#define PAS_TEXT       3201
-#define PAS_ENTER      3202
-#define PAS_CONFIRM    3203
-#define PAS_OK         IDOK
-#define PAS_CANCEL     IDCANCEL
 
