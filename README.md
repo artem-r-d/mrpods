@@ -71,6 +71,7 @@ Compilation
 Changelog
 ---------
 Version 1.20 - First stable release in x86. Fixed two memory issues (one due to rewrite, another from original code), properly removed AES functionality, preliminary support for x64 version.
+
 Version 1.10 - Initial release. Based off PaperBack v1.10. AES functionality is commented out at the moment, and there is no graceful handling of existing AES documents from PaperBack.
 
 Similar Tools (Not Recommended)
